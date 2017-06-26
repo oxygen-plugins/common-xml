@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.github.oxygen-plugins</groupId>
+  <artifactId>common-xml</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20170626123704</lastUpdated>
+  </versioning>
+</metadata>
