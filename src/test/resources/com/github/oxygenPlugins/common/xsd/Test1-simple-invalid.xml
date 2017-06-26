@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Test1-simpleXSD.xsd">
+    <element1>bla</element1>
+    <element2>String</element2>
+    <element3>bla</element3>
+</root>
