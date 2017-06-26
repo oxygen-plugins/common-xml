@@ -2,6 +2,7 @@ package com.github.oxygenPlugins.common.xml.xslt;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.Reader;
 import java.io.StringReader;
 
 import javax.xml.transform.ErrorListener;
@@ -9,6 +10,8 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import org.xml.sax.InputSource;
 
 import com.github.oxygenPlugins.common.text.TextSource;
 
@@ -68,5 +71,8 @@ public class SaxonUtils {
 		StreamSource ss = new StreamSource(new StringReader(textSource.toString()));
 		ss.setSystemId(textSource.getFile());
 		return ss;
+	}
+	public static Source getStreamSource(InputSource schemaSrc) {
+		return new StreamSource(schemaSrc.getCharacterStream());
 	}
 }

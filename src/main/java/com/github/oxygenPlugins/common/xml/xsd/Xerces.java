@@ -22,7 +22,7 @@ import com.github.oxygenPlugins.common.xml.exceptions.ValidationSummaryException
 
 
 
-public class Xerces {
+public class Xerces implements XercesI {
 	
 	
 	private final DOMParser domp;
