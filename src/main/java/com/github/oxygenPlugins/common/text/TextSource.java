@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.JarURLConnection;
@@ -35,6 +36,7 @@ import org.mozilla.universalchardet.UniversalDetector;
 import org.xml.sax.InputSource;
 
 import com.github.oxygenPlugins.common.text.uri.DefaultURIResolver;
+import com.github.oxygenPlugins.common.xml.xslt.SaxonUtils;
 
 
 public class TextSource {
@@ -456,6 +458,9 @@ public class TextSource {
 	}
 	public static DefaultURIResolver getResolver() {
 		return resolver;
+	}
+	public Source createSource() {
+		return SaxonUtils.getStreamSource(this);
 	}
 
 }

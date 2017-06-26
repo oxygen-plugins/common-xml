@@ -13,10 +13,6 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.events.XMLEvent;
-import javax.xml.stream.util.XMLEventAllocator;
-import javax.xml.stream.util.XMLEventConsumer;
-
 
 import org.codehaus.stax2.XMLInputFactory2;
 import org.w3c.dom.Document;
@@ -64,7 +60,7 @@ public class PositionalStaxParser {
 		
 		// IMPORTANT - THIS NEEDS TO BE IMPLEMENTET IN WOODSTOX
 		
-		// BasicStreamReader.ATTRIBUTE_LISTENER = this.udm;
+		 BasicStreamReader.ATTRIBUTE_LISTENER = this.udm;
 		
 		
 		

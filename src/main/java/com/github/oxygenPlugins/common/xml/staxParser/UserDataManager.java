@@ -17,7 +17,7 @@ import org.w3c.dom.Node;
 
 import com.github.oxygenPlugins.common.xml.xpath.NamespaceContextImpl;
 
-//import com.ctc.wstx.sr.AttributeListener;
+import com.ctc.wstx.sr.AttributeListener;
 
 public class UserDataManager implements AttributeListener {
 	private final Document doc;
