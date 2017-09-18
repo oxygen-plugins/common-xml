@@ -22,10 +22,18 @@ public class AttributeInfo extends TextInfo {
 //		String attributeRegion = parentInfo.getAttributRegion();
 //		Location[] startEnd = getAttributStartEnd(attributeRegion, parentInfo.getAttributRegionStart(), node, lineColumns);
 		start = (Location) node.getUserData(PositionalXMLReader.NODE_LOCATION_START);
-		end = (Location) node.getUserData(PositionalXMLReader.NODE_LOCATION_END);;
-		nameEnd = (Location) node.getUserData(PositionalXMLReader.NODE_INNER_LOCATION_START);
-		Location valStartloc = (Location) node.getUserData(PositionalXMLReader.NODE_INNER_LOCATION_END);
-		valueStart = NodeInfo.newLocation(valStartloc, 1, lineColumns);
+		if(start != null){
+			end = (Location) node.getUserData(PositionalXMLReader.NODE_LOCATION_END);;
+			nameEnd = (Location) node.getUserData(PositionalXMLReader.NODE_INNER_LOCATION_START);
+			
+			Location valStartloc = (Location) node.getUserData(PositionalXMLReader.NODE_INNER_LOCATION_END);
+			valueStart = NodeInfo.newLocation(valStartloc, 1, lineColumns);
+		} else {
+			end = null;
+			nameEnd = null;
+			valueStart = null;
+		}
+		
 	}
 	public Node getNode() {
 		return node;
@@ -56,6 +64,10 @@ public class AttributeInfo extends TextInfo {
 	
 	public int getEndOffset(){
 		return end.getCharacterOffset();
+	}
+	
+	public boolean isValid(){
+		return start != null;
 	}
 	
 //	public NodeInfo nodeInfoWithOffset(int start, int end, LineColumnInfo lineColumns) {
