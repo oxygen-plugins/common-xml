@@ -172,4 +172,33 @@ public class StringNode {
 	public LineColumnInfo getLineColumnInfo(){
 		return this.lineColumns;
 	}
+	
+	public boolean equals(Object obj, boolean codeSensitive) {
+		if(!(obj instanceof StringNode)){
+			return false;
+		}
+		StringNode objSN = (StringNode) obj;
+		if(codeSensitive){
+			return this.toString().equals(objSN.toString());
+		} else {
+			return this.docNode.equals(objSN.docNode);
+		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.equals(obj, false);
+	}
+	
+	public String getCompareString(boolean codeSensitive){
+		if(codeSensitive){
+			return this.toString();
+		}
+		return getCompareString(this.docNode);
+	}
+
+	private String getCompareString(Document docNode2) {
+		return null;
+	}
+	
 }
