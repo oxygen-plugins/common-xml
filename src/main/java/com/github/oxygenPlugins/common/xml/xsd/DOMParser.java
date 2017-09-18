@@ -8,6 +8,8 @@ import org.apache.xerces.parsers.StandardParserConfiguration;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 
+import com.sun.org.apache.xerces.internal.xni.parser.XMLParserConfiguration;
+
 @SuppressWarnings("unchecked")
 public class DOMParser {
 	private static Class<?> configClass;
@@ -52,6 +54,7 @@ public class DOMParser {
 	
 	protected DOMParser(){
 			try {
+				
 				this.domparser = dompClass.getConstructor(org.apache.xerces.xni.parser.XMLParserConfiguration.class).newInstance(configClass.newInstance());
 			} catch (InstantiationException e) {
 				e.printStackTrace();
