@@ -13,6 +13,7 @@ public class ProcessNamespaces {
 	public static final String XML_NS = "http://www.w3.org/XML/1998/namespace";
 	public static final String XSD_NS = "http://www.w3.org/2001/XMLSchema";
 	public static final String XSM_NS = "http://www.schematron-quickfix.com/manipulator/process";
+	public static final String XI_NS = "http://www.w3.org/2001/XInclude";
 	
 	public static final NamespaceContext NAMESPACES = new NamespaceContext() {
 		public String getNamespaceURI(String prefix) {
@@ -31,6 +32,8 @@ public class ProcessNamespaces {
 				uri = XSD_NS;
 			else if (prefix.equals("xml"))
 				uri = XML_NS;
+			else if (prefix.equals("xi"))
+				uri = XI_NS;
 			else
 				uri = null;
 			return uri;

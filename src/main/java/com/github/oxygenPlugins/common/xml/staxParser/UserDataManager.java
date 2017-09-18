@@ -54,6 +54,11 @@ public class UserDataManager implements AttributeListener {
 					range.end, null);
 		}
 	}
+	
+	@Override
+	public String getSystemId() {
+		return this.doc.getBaseURI();
+	}
 
 	void setDTD(XMLStreamReader event) throws XMLStreamException {
 		Range range = getRangeAndNextEvent(event);

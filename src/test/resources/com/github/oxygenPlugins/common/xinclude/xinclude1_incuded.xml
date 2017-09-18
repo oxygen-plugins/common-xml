@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element id="e1">
+    <e id="incl_child1" class="incl"/>
+    <e class="incl" id="incl_child2"/>
+</element>

@@ -28,6 +28,7 @@ import com.github.oxygenPlugins.common.text.TextSource;
 import com.github.oxygenPlugins.common.text.uri.DefaultURIResolver;
 import com.github.oxygenPlugins.common.xml.exceptions.XSLTErrorListener;
 
+import net.sf.saxon.lib.FeatureKeys;
 import net.sf.saxon.lib.OutputURIResolver;
 
 public class XSLTStep {
@@ -59,6 +60,8 @@ public class XSLTStep {
 					transfac.setAttribute(key, value);
 				}
 			}; 
+
+			transfac.setAttribute(FeatureKeys.XINCLUDE, Boolean.TRUE);
 					
 					
 		} catch (Exception e){
@@ -144,6 +147,8 @@ public class XSLTStep {
 			}
 		}
 		transformer.setErrorListener(el);
+		
+		
 		if(TextSource.hasResolver()){
 			DefaultURIResolver resolver = TextSource.getResolver();
 			URIResolver transformerResolver = transformer.getURIResolver();
