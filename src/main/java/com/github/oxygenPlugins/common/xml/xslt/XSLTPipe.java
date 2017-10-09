@@ -101,7 +101,7 @@ public class XSLTPipe {
 		addStep(errorListener != null ? new XSLTStep(xsl, errorListener, params) : new XSLTStep(xsl, params));
 	}
 	
-	private void addStep(XSLTStep step){
+	public void addStep(XSLTStep step){
 		if(outputProps != null){
 			step.setOutputProperty(outputProps);
 		}
