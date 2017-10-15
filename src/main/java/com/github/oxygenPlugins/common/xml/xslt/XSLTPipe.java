@@ -173,7 +173,7 @@ public class XSLTPipe {
 	}
 	
 	public ArrayList<TextSource> pipe(TextSource source, ArrayList<Parameter> params) throws XSLTErrorListener {
-		return pipe(source, params, new DefaultProcessLoger());
+		return pipe(source, params, DefaultProcessLoger.getDefaultProccessLogger());
 	}
 	
 	public ArrayList<TextSource> pipeAll(TextSource source, ArrayList<Parameter> params, ProcessLoger loger) {

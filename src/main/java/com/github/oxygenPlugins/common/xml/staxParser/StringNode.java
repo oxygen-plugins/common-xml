@@ -22,11 +22,11 @@ public class StringNode {
 	private Document docNode;
 	private String absPath;
 	private static PositionalXMLReader pxr = new PositionalXMLReader();
-	private ProcessLoger processLogger = new DefaultProcessLoger();
+	private ProcessLoger processLogger;
 	private final LineColumnInfo lineColumns;
 	
 	public StringNode(TextSource source) throws IOException, SAXException, XMLStreamException{
-		this(source, new DefaultProcessLoger());
+		this(source, DefaultProcessLoger.getDefaultProccessLogger());
 		
 	}
 	

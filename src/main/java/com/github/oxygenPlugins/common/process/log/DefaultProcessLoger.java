@@ -30,5 +30,13 @@ public class DefaultProcessLoger implements ProcessLoger {
 		
 	}
 
-
+	private static ProcessLoger defaultProcessLogger = new DefaultProcessLoger();
+	
+	public static ProcessLoger getDefaultProccessLogger(){
+		return defaultProcessLogger;
+	}
+	
+	public static void setDefaultProcessLogger(ProcessLoger defaultProcessLogger){
+		DefaultProcessLoger.defaultProcessLogger = defaultProcessLogger;
+	}
 }
