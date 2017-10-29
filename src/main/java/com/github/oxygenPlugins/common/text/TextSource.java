@@ -329,6 +329,33 @@ public class TextSource {
 		return new InputStreamReader(new FileInputStream(input), encoding);
 	}
 	
+	private static Reader resolveFile(URL url){
+		if(resolver != null){
+			Source src;
+			try {
+				src = resolver.resolve(url.toURI().toString(), new File(".").toURI().toString());
+				if(src instanceof StreamSource){
+					StreamSource ssrc = (StreamSource) src;
+					Reader reader = ssrc.getReader();
+					if(reader == null){
+						reader = new InputStreamReader(ssrc.getInputStream());
+					}
+					return reader;
+				} else if (src instanceof InputSource) {
+					InputSource isrc = (InputSource) src;
+					return isrc.getCharacterStream();
+				}
+			} catch (TransformerException e) {} catch (URISyntaxException e) {
+			}
+		}
+		try {
+			return new InputStreamReader(url.openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	private static Reader getReader(Source src){
 		if(src instanceof StreamSource){
 			StreamSource ssrc = (StreamSource) src;
@@ -361,7 +388,7 @@ public class TextSource {
 
 	public static TextSource readTextFile(URL url) throws IOException {
 		TextSource tr = new TextSource(new File(url.getFile()));
-		return readTextFile(new InputStreamReader(url.openStream()), tr);
+		return readTextFile(resolveFile(url), tr);
 	}
 
 	private static TextSource readTextFile(Reader reader, TextSource tr) throws IOException {
