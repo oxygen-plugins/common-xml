@@ -41,6 +41,19 @@ public class StringUtil {
 		return m.find();
 	}
 	
+	public static final String stringJoin(final String[] strings, final String sep){
+		String result ="";
+		
+		for (int i = 0; i < strings.length; i++) {
+			result += strings[i];
+			if(i+1 < strings.length){
+				result += sep;
+			}
+		}
+		
+		return result;
+	}
+	
 	public static void main(String[] args) {
 //		String[] lines = StringUtil.getLinesArr("<root>\n<a>hier kommt ein Umbruch\r\n</a>\r</root>");
 		
