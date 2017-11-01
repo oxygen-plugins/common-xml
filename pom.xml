@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.oxygen-plugins</groupId>
 	<artifactId>common-xml</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>Common XML utils</name>
 	<description>This project contains frequently used XML utils, so they can be used in several projects.</description>
 	<url>https://github.com/oxygen-plugins/common-xml</url>
