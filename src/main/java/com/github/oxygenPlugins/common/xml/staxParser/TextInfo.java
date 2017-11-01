@@ -19,6 +19,14 @@ public class TextInfo extends NodeInfo {
 		
 	}
 	
+	@Override
+	public String getBaseURI() {
+		String superBaseUri = super.getBaseURI();
+		if(superBaseUri != null)
+			return null;
+		return this.getNode().getParentNode().getBaseURI();
+	}
+	
 	public int transformNodeToCode(int offset){
 		return translate(offset);
 	}

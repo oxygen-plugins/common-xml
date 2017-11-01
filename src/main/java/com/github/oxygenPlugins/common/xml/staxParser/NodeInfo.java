@@ -75,7 +75,23 @@ public class NodeInfo {
 	public int getValueStartOffset(){
 		return getValueStart().getCharacterOffset();
 	}
-
+	
+	public String getBaseURI(){
+		return getBaseURI(this.node);
+	}
+	
+	private String getBaseURI(Node node){
+		if(node == null)
+			return this.start.getSystemId(); 
+		String uri = node.getBaseURI();
+		
+		if(uri == null)
+			return getBaseURI(node.getParentNode());
+		
+		return uri;
+		
+	}
+	
 	public NodeInfo nodeInfoWithOffset(int start, int end, LineColumnInfo lineColumns) {
 		
 		if(this.getNode() instanceof Comment){
