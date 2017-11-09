@@ -56,7 +56,9 @@ public class PositionalXMLReader {
 	public final static int TEXT_TYPE = 4;
 	public final static int DTD_TYPE = 5;
 	public static final int DTD_TYPE_END = 6;
-
+	
+	public static final String IS_ENTITY = "isEnt";
+	
 	public static final String HAS_DTD = "hasDTD";
 
 	public static final String NAMESPACE_CONTEXT = "nsc";
@@ -81,6 +83,7 @@ public class PositionalXMLReader {
 			};
 	// public static final String PREFIX_MAPPING = "prefixMapping";
 	// public static final String NAMESPACE_MAPPING = "namespaceMapping";
+	
 
 	// private final HashMap<Integer, Integer> linePositionMap = new
 	// HashMap<Integer, Integer>();

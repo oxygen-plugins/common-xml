@@ -10,7 +10,7 @@ public class LineColumnInfo {
 	ArrayList<Integer> lineOffsets = new ArrayList<Integer>();
 	
 	public LineColumnInfo(String text, String lineSeparator){
-		
+		updateLineColumns(text, lineSeparator);
 	}
 	
 	public LineColumnInfo(StringNode sn) {

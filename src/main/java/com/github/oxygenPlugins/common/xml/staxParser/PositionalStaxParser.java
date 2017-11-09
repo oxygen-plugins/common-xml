@@ -260,7 +260,7 @@ public class PositionalStaxParser {
 		this.textBuffer.add(textNode);
 
 		// set User data:
-		this.udm.setNode(textNode, event, true);
+		this.udm.setNode(textNode, event, event.getEventType() == XMLStreamConstants.CHARACTERS);
 
 	}
 

@@ -162,6 +162,18 @@ public class NodeInfo {
 				// TODO Auto-generated method stub
 				return correctPosition;
 			}
+			
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return "[row,col,system-id]: ["
+						+ correctLineNumber
+						+ ","
+						+ correctColumnNumber
+						+ ",\""
+						+ getSystemId()
+						+ "\"]";
+			}
 		};
 	}
 }

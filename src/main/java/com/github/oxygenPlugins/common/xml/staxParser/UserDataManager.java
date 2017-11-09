@@ -2,6 +2,7 @@ package com.github.oxygenPlugins.common.xml.staxParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,8 +30,8 @@ public class UserDataManager implements AttributeListener {
 	public UserDataManager(Document doc, String docBytes) {
 		this.doc = doc;
 		this.docBytes = docBytes;
-		String sep = docBytes.contains("\\r\\n") ? "\\r\\n" : docBytes
-				.contains("\\n") ? "\\n" : "\\r";
+		String sep = docBytes.contains("\r\n") ? "\r\n" : docBytes
+				.contains("\n") ? "\n" : "\r";
 		this.lineColumns = new LineColumnInfo(docBytes, sep);
 	}
 
@@ -92,6 +93,7 @@ public class UserDataManager implements AttributeListener {
 				null);
 		node.setUserData(PositionalXMLReader.NODE_LOCATION_END, range.end, null);
 		node.setUserData(PositionalXMLReader.NAMESPACE_CONTEXT, ns, null);
+		node.setUserData(PositionalXMLReader.IS_ENTITY, !textNode, null);
 	}
 
 	void setStartElement(Element element, XMLStreamReader event)
@@ -316,16 +318,35 @@ public class UserDataManager implements AttributeListener {
 			ArrayList<Node> textBuffer) {
 		Node first = textBuffer.get(0);
 		Node last = textBuffer.get(textBuffer.size() - 1);
-		JumpRange[] jumps = new JumpRange[textBuffer.size()];
+		
+		ArrayList<JumpRange> jumpList = new ArrayList<JumpRange>();
 		int i = 0;
 		for (Node textNode : textBuffer) {
 			Location start = (Location) textNode
 					.getUserData(PositionalXMLReader.NODE_LOCATION_START);
 			Location end = (Location) textNode
 					.getUserData(PositionalXMLReader.NODE_LOCATION_END);
+			
+
+			boolean isEntity = (boolean) textNode
+					.getUserData(PositionalXMLReader.IS_ENTITY);
+			
 			JumpRange range = new JumpRange(start, end, textNode.getNodeValue());
-			jumps[i++] = range;
+			if(range.isJump() && !isEntity){
+				
+				ArrayList<JumpRange> ranges = createSubRanges(start, end, textNode.getNodeValue());
+				if(ranges.size() > 0){
+					jumpList.addAll(ranges);
+				} else {
+					jumpList.add(range);
+				}
+			} else {
+				jumpList.add(range);
+			}
+			
 		}
+		
+		JumpRange[] jumps = jumpList.toArray(new JumpRange[jumpList.size()]);
 
 		newTextNode.setUserData(PositionalXMLReader.NODE_LOCATION_START,
 				first.getUserData(PositionalXMLReader.NODE_LOCATION_START),
@@ -407,7 +428,9 @@ public class UserDataManager implements AttributeListener {
 		@Override
 		public String toString() {
 			return "[" + this.start.getCharacterOffset() + ":"
-					+ this.end.getCharacterOffset() + "]";
+					+ this.end.getCharacterOffset() + ", "
+							+ getDiff()
+							+ "]";
 		}
 	}
 
@@ -518,5 +541,59 @@ public class UserDataManager implements AttributeListener {
 					+ loc.getCharacterOffset();
 		}
 	}
+	
+	
+	private ArrayList<JumpRange> createSubRanges(Location start, Location end, String nodeValue){
 
+		ArrayList<JumpRange> rangeList = new ArrayList<JumpRange>();
+		ArrayList<Integer> posList = new ArrayList<Integer>();
+
+		int startJump = start.getCharacterOffset();
+		int endJump = end.getCharacterOffset();
+		
+		
+		
+		String code = docBytes.substring(startJump, endJump);
+		
+		boolean isInEnt = false;
+		int offsetStart = startJump;
+		
+		HashSet<Integer> ampPositions = new HashSet<Integer>();
+		for (int i = 0; i < code.length(); i++) {
+			int c = code.codePointAt(i);
+			switch (c) {
+			case 38:
+				posList.add(i);
+				ampPositions.add(i);
+				isInEnt = true;
+				break;
+			case 59:
+				if(isInEnt){
+					posList.add(i + 1);
+					isInEnt = false;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		
+		posList.add(code.length());
+		
+		int startPos = 0;
+		
+		if(ampPositions.size() > 0){
+			for (Integer pos : posList) {
+				if(pos > startPos){
+					Location newStart = NodeInfo.newLocation(start, startPos, lineColumns);
+					Location newEnd = NodeInfo.newLocation(start, pos, lineColumns);
+					rangeList.add(new JumpRange(newStart, newEnd, ampPositions.contains(startPos) ? 1 : pos - startPos));
+					startPos = pos;
+				}
+			}
+		}
+			
+		
+		return rangeList;
+	}
 }
