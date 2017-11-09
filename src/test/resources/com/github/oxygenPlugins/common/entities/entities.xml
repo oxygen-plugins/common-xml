@@ -1,0 +1,15 @@
+<!DOCTYPE packungsbeilagen [
+<!ENTITY with "w">
+<!ENTITY another "another, but longer">
+<!ENTITY hexa "xHxHxHxHx">
+<!ENTITY decimal-format "0000">
+<!ENTITY amb "u">
+<!ENTITY ld "l">
+<!ENTITY gd "g">
+]>
+<root>
+    <dtd-ent>text &with; entity and &another; an entitiy</dtd-ent>
+    <escape-ent>characters like &amp; or &lt; and &gt; should be escaped.</escape-ent>
+    <unicode-ent>special characters like &#xA0; can be inserted by there &#x003C;unicode position&#62;</unicode-ent>
+    <mix>&gt;They are marked with an &amp; followed by the # character and the unicode position in the format &hexa; or &decimal-format;. Closed by a ";" char. Example: &#x3C; which means &lt;.</mix>
+</root>
