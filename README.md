@@ -3,6 +3,11 @@ Common XML utils - This project contains frequently used XML utils, so they can 
 
 ## Release Notes
 
+### Version 0.1.1
+
+- Fix for Entity parsing: Support Character entities (e.g. &amp;amp; / &amp;#x00A0;)
+- Fix for NodeInfo: if node baseUri is null use the baseUri of the parent node.
+
 ### Version 0.1.0
 
 - XInclude support
