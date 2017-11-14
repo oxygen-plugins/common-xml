@@ -13,7 +13,7 @@ public class DefaultURIResolver implements URIResolver {
 	
 	private URIResolver fallbackUriResolver = null;
 	
-	protected DefaultURIResolver(){
+	public DefaultURIResolver(){
 		try {
 			this.fallbackUriResolver = TransformerFactory.newInstance().newTransformer().getURIResolver();
 		} catch (TransformerConfigurationException e) {
