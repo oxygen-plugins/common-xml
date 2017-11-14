@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.JarURLConnection;
@@ -27,10 +26,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
 
 import org.mozilla.universalchardet.UniversalDetector;
 import org.xml.sax.InputSource;
@@ -329,7 +326,7 @@ public class TextSource {
 		return new InputStreamReader(new FileInputStream(input), encoding);
 	}
 	
-	private static Reader resolveFile(URL url){
+	private static Reader resolveFile(URL url, String encoding){
 		if(resolver != null){
 			Source src;
 			try {
@@ -349,7 +346,7 @@ public class TextSource {
 			}
 		}
 		try {
-			return new InputStreamReader(url.openStream());
+			return new InputStreamReader(url.openStream(), encoding);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -388,7 +385,7 @@ public class TextSource {
 
 	public static TextSource readTextFile(URL url) throws IOException {
 		TextSource tr = new TextSource(new File(url.getFile()));
-		return readTextFile(resolveFile(url), tr);
+		return readTextFile(resolveFile(url, DEFAULT_ENCODING), tr);
 	}
 
 	private static TextSource readTextFile(Reader reader, TextSource tr) throws IOException {
