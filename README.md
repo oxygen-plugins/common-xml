@@ -3,6 +3,11 @@ Common XML utils - This project contains frequently used XML utils, so they can 
 
 ## Release Notes
 
+### Version 0.1.2
+
+- Bug fixes:
+    - Encoding problems when reading from URL.
+
 ### Version 0.1.1
 
 - Fix for Entity parsing: Support Character entities (e.g. &amp;amp; / &amp;#x00A0;)
