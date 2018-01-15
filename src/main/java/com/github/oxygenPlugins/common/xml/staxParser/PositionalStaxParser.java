@@ -14,6 +14,7 @@ import java.util.Stack;
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -69,7 +70,11 @@ public class PositionalStaxParser {
 		// IMPORTANT - THIS NEEDS TO BE IMPLEMENTET IN WOODSTOX
 
 		BasicStreamReader.addAttributeListener(this.udm);
-
+		
+		if(TextSource.getEntityResolver() != null){
+			xmlInputFactory2.setXMLResolver(TextSource.getEntityResolver());
+		}
+		
 		XMLStreamReader event = xmlInputFactory2.createXMLStreamReader(initialBaseUri, is);
 
 		while (event.hasNext()) {

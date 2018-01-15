@@ -21,6 +21,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.stream.XMLResolver;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -298,12 +299,19 @@ public class TextSource {
 	public static void implementResolver(DefaultURIResolver resolver){
 		TextSource.resolver = resolver; 
 	}
+	public static void implementEntityResolver(XMLResolver resolver){
+		TextSource.entityResolver = resolver; 
+	}
+	public static XMLResolver getEntityResolver(){
+		return entityResolver;
+	}
 	
 	public static void resetResolver(){
 		resolver = null;
 	}
 
 	private static DefaultURIResolver resolver = null;
+	private static XMLResolver entityResolver = null;
 	
 	private static Reader resolveFile(File input, String encoding) throws IOException {
 		if(resolver != null){
